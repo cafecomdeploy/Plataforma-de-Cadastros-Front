@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+.app-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  transform: scale(1.5); /* Escala o componente em 1.5x */
+}

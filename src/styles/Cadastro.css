@@ -1,55 +1,47 @@
-* {
-    box-sizing: border-box;
-  }
-  
-  html, body {
-    height: 100%;
-    margin: 0; 
-    padding: 0; 
-  }
-  
-  body.componente-cadastro {
-    background-image: url('https://ufob.edu.br/noticias/roda-de-conversa-debate-saude-mental-na-era-das-redes-sociais/magem-em-fundo-lilas-com-desenho-de-jovem-acuado-em-frente-a-uma-tela-de-notebook/@@images/032dfb21-c1ba-4990-9b59-7c4c38106a2a.png');
-    background-size: cover; 
-    background-position: center; 
-    background-repeat: no-repeat; 
-    overflow: hidden; 
-  }
-  
-  .cadastro-container {
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 100vh;
-    overflow: hidden;
+.cadastro-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f9;
+}
 
-  }
-  
-  .card-panel {
-    background-color: rgba(255, 255, 255, 0.8); 
-    border-radius: 10px;
-    padding: 30px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
-  
-  h5 {
-    color: #333; 
-    font-family: 'Arial', sans-serif;
-  }
-  
-  .input-field input:focus + label,
-  .input-field input:not(:placeholder-shown) + label {
-    color: #007bff; 
-    font-size: 12px; 
-    top: -20px; 
-  }
-  
-  .input-field label {
-    transition: all 0.2s ease; 
-  }
+.form {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
 
-  .red-text {
-    color: red; 
-  }
-  
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+}
 
-  
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+  text-align: center;
+}

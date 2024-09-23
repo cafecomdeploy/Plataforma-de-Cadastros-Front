@@ -1,76 +1,107 @@
-import React, { useState } from 'react';
-import Button from './Button';
-import 'materialize-css/dist/css/materialize.min.css';
-import '../styles/Cadastro.css'; // Para o CSS personalizado
+import React, { useState } from "react";
+import '../styles/Cadastro.css'; // Importando o arquivo de estilos
 
 const Cadastro = () => {
   const [formData, setFormData] = useState({
-    nome: '',
-    email: '',
-    dataNascimento: '',
-    senha: '',
-    confirmarSenha: ''
+    nome: "",
+    email: "",
+    dataNascimento: "",
+    senha: "",
+    confirmarSenha: "",
   });
 
-  const [errors, setErrors] = useState({});
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const validateEmail = (email) => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newErrors = {};
 
-    if (!formData.nome) newErrors.nome = 'Nome é obrigatório';
-    if (!formData.email) {
-      newErrors.email = 'Email é obrigatório';
-    } else if (!validateEmail(formData.email)) {
-      newErrors.email = 'Email inválido';
-    }
-    if (!formData.dataNascimento) newErrors.dataNascimento = 'Data de nascimento é obrigatória';
-    if (!formData.senha) newErrors.senha = 'Senha é obrigatória';
     if (formData.senha !== formData.confirmarSenha) {
-      newErrors.confirmarSenha = 'As senhas não coincidem';
+      setError("As senhas não coincidem");
+    } else {
+      setError("");
+      // Aqui você pode enviar os dados para o back-end
+      console.log("Formulário enviado com sucesso!", formData);
     }
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
-
-    console.log(JSON.stringify(formData));
-    setErrors({});
-    // Aqui você pode fazer a chamada ao backend
   };
 
   return (
-    <div className="container cadastro-container">
-      <div className="card-panel">
-        <h5 className="center-align">Formulário de Cadastro</h5>
-        <form onSubmit={handleSubmit}>
-          {['nome', 'email', 'dataNascimento', 'senha', 'confirmarSenha'].map((field, index) => (
-            <div className="input-field" key={index}>
-              <input
-                type={field.includes('senha') ? 'password' : field === 'dataNascimento' ? 'date' : 'text'}
-                name={field}
-                value={formData[field]}
-                onChange={handleChange}
-                required
-              />
-              <label htmlFor={field}>{field.charAt(0).toUpperCase() + field.slice(1).replace('dataNascimento', 'Data de Nascimento')}</label>
-              {errors[field] && <span className="red-text">{errors[field]}</span>}
-            </div>
-          ))}
-          <Button type="submit">Cadastrar</Button>
-        </form>
-      </div>
+    <div className="cadastro-container">
+      <form onSubmit={handleSubmit} className="form">
+        <h2 className="title">Cadastro de Usuário</h2>
+
+        <div className="input-group">
+          <label htmlFor="nome">Nome:</label>
+          <input
+            type="text"
+            name="nome"
+            value={formData.nome}
+            onChange={handleChange}
+            className="input"
+            required
+          />
+        </div>
+
+        <div className="input-group">
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            className="input"
+            required
+          />
+        </div>
+
+        <div className="input-group">
+          <label htmlFor="dataNascimento">Data de Nascimento:</label>
+          <input
+            type="date"
+            name="dataNascimento"
+            value={formData.dataNascimento}
+            onChange={handleChange}
+            className="input"
+            required
+          />
+        </div>
+
+        <div className="input-group">
+          <label htmlFor="senha">Senha:</label>
+          <input
+            type="password"
+            name="senha"
+            value={formData.senha}
+            onChange={handleChange}
+            className="input"
+            required
+          />
+        </div>
+
+        <div className="input-group">
+          <label htmlFor="confirmarSenha">Confirme a Senha:</label>
+          <input
+            type="password"
+            name="confirmarSenha"
+            value={formData.confirmarSenha}
+            onChange={handleChange}
+            className="input"
+            required
+          />
+        </div>
+
+        {error && <p className="error">{error}</p>}
+
+        <button type="submit" className="button">
+          Cadastrar
+        </button>
+      </form>
     </div>
   );
 };

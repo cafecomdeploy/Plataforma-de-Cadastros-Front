@@ -11,6 +11,7 @@ const App = () => {
         <Router>
             <Routes>
                 <Route path="/" element={<FormLogin />} />
+                
                 <Route path="/signup" element={<Cadastro />} />
                 <Route path="/endereco" element={<CadastroEndereco />} />
                 <Route path="/novo-endereco" element={<Endereco />} />

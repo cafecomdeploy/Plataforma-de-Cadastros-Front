@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 602px;
   background-color: #f4f4f9;
 }
 
@@ -11,7 +11,7 @@
   border-radius: 10px;
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 300px;
+  width: 600px;
 }
 
 .title {
@@ -24,14 +24,14 @@
 }
 
 .input {
-  width: 100%;
+  width: 80%;
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
 }
 
 .button {
-  width: 100%;
+  width: 90%;
   padding: 10px;
   border-radius: 5px;
   background-color: #007bff;

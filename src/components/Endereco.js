@@ -1,89 +1,98 @@
 import React, { useState } from 'react';
-import '../styles/Endereco.css'; // Importando o CSS
+import '../styles/Endereco.css';
+
+const estados = [
+  'Acre', 'Alagoas', 'Amapá', 'Amazonas', 'Bahia', 'Ceará', 'Distrito Federal', 
+  'Espírito Santo', 'Goiás', 'Maranhão', 'Mato Grosso', 'Mato Grosso do Sul', 
+  'Minas Gerais', 'Pará', 'Paraíba', 'Paraná', 'Pernambuco', 'Piauí', 
+  'Rio de Janeiro', 'Rio Grande do Norte', 'Rio Grande do Sul', 
+  'Rondônia', 'Roraima', 'Santa Catarina', 'São Paulo', 'Sergipe', 'Tocantins'
+];
+
+const validarCep = (cep) => {
+  return /^[0-9]{5}-[0-9]{3}$/.test(cep);
+};
 
 const Endereco = () => {
-  const [logradouro, setLogradouro] = useState('');
-  const [cidade, setCidade] = useState('');
-  const [estado, setEstado] = useState('');
-  const [cep, setCep] = useState('');
-  const [cepValido, setCepValido] = useState(true);
+  const [formData, setFormData] = useState({
+    logradouro: '',
+    cidade: '',
+    estado: '',
+    cep: ''
+  });
+  const [errors, setErrors] = useState({ cep: '' });
 
-  const validarCEP = (cep) => {
-    const regex = /^[0-9]{5}-?[0-9]{3}$/; // Formato: 12345-678
-    return regex.test(cep);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+
+    // Validação do CEP
+    if (name === 'cep' && value !== '' && !validarCep(value)) {
+      setErrors({ ...errors, cep: 'CEP inválido. O formato deve ser 00000-000.' });
+    } else {
+      setErrors({ ...errors, cep: '' });
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validarCEP(cep)) {
-      alert('Endereço salvo com sucesso!');
-      // Aqui você pode adicionar a lógica para enviar os dados
-      resetForm();
-    } else {
-      setCepValido(false);
+    if (!validarCep(formData.cep)) {
+      alert('Por favor, corrija os erros antes de enviar.');
+      return;
     }
-  };
-
-  const resetForm = () => {
-    setLogradouro('');
-    setCidade('');
-    setEstado('');
-    setCep('');
-    setCepValido(true);
+    alert('Endereço cadastrado com sucesso!');
+    console.log(formData);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>
-          Logradouro:
+    <div className="container">
+      <h2>Cadastro de Endereço</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Logradouro:</label>
           <input
             type="text"
-            value={logradouro}
-            onChange={(e) => setLogradouro(e.target.value)}
+            name="logradouro"
+            value={formData.logradouro}
+            onChange={handleChange}
             required
           />
-        </label>
-      </div>
-      <div>
-        <label>
-          Cidade:
+        </div>
+        <div>
+          <label>Cidade:</label>
           <input
             type="text"
-            value={cidade}
-            onChange={(e) => setCidade(e.target.value)}
+            name="cidade"
+            value={formData.cidade}
+            onChange={handleChange}
             required
           />
-        </label>
-      </div>
-      <div>
-        <label>
-          Estado:
+        </div>
+        <div>
+          <label>Estado:</label>
           <input
             type="text"
-            value={estado}
-            onChange={(e) => setEstado(e.target.value)}
+            name="estado"
+            value={formData.estado}
+            onChange={handleChange}
             required
           />
-        </label>
-      </div>
-      <div>
-        <label>
-          CEP:
+        </div>
+        <div>
+          <label>CEP:</label>
           <input
             type="text"
-            value={cep}
-            onChange={(e) => {
-              setCep(e.target.value);
-              setCepValido(true); // Resetar erro ao digitar
-            }}
+            name="cep"
+            value={formData.cep}
+            onChange={handleChange}
             required
+            placeholder="00000-000"
           />
-        </label>
-        {!cepValido && <span className="error">CEP inválido</span>}
-      </div>
-      <button type="submit">Salvar Endereço</button>
-    </form>
+          {errors.cep && <span className="error">{errors.cep}</span>}
+        </div>
+        <button type="submit">Cadastrar</button>
+      </form>
+    </div>
   );
 };
 

@@ -13,7 +13,7 @@ const App = () => {
                 <Route path="/" element={<FormLogin />} />
                 <Route path="/signup" element={<Cadastro />} />
                 <Route path="/endereco" element={<CadastroEndereco />} />
-                <Route path="/teste" component={Endereco} />
+                <Route path="/novo-endereco" element={<Endereco />} />
             </Routes>
         </Router>
     );

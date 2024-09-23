@@ -1,32 +1,24 @@
-body {
-    background-color: #E6E6FA; /* Lilás claro para o fundo do corpo */
-    margin: 0; /* Remove margens padrão do body */
-    font-family: Arial, sans-serif; /* Estilo de fonte padrão */
-}
-
-.cadastro-endereco {
+.cadastro-endereco-container {
     padding: 20px;
-    background-color: white; /* Fundo branco para o componente */
-    border-radius: 8px; /* Adiciona cantos arredondados */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidade */
-}
-
-.tabela-enderecos {
+  }
+  
+  table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-}
-
-.tabela-enderecos th, .tabela-enderecos td {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-.tabela-enderecos th {
-    background-color: #f2f2f2; /* Cor de fundo para o cabeçalho */
-    text-align: left;
-}
-
-.tabela-enderecos tr:hover {
-    background-color: #f9f9f9; /* Cor ao passar o mouse */
-}
+  }
+  
+  th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  button {
+    margin-bottom: 20px;
+  }
+  
+  p {
+    text-align: center;
+    color: #555;
+  }
+  

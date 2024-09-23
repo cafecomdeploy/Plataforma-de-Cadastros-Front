@@ -8,7 +8,7 @@
     padding: 0; 
   }
   
-  body {
+  body.componente-cadastro {
     background-image: url('https://ufob.edu.br/noticias/roda-de-conversa-debate-saude-mental-na-era-das-redes-sociais/magem-em-fundo-lilas-com-desenho-de-jovem-acuado-em-frente-a-uma-tela-de-notebook/@@images/032dfb21-c1ba-4990-9b59-7c4c38106a2a.png');
     background-size: cover; 
     background-position: center; 
@@ -20,9 +20,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    overflow: hidden;
 
   }
   

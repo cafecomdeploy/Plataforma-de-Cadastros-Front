@@ -41,9 +41,10 @@ const FormLogin = () => {
             }
 
             const data = await response.json();
-            console.log("Data", data)
+            console.log("Data", data.access_token)
             localStorage.setItem('token', data.access_token); // Armazena o token no localStorage
-            navigate('/signup'); // Redireciona para a página de cadastro
+            localStorage.setItem('user_id', data.user_id);
+            navigate('/endereco'); // Redireciona para a página de ewndereco
         } catch (err) {
             setError(err.message);
         }

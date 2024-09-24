@@ -41,7 +41,8 @@ const FormLogin = () => {
             }
 
             const data = await response.json();
-            localStorage.setItem('token', data.token); // Armazena o token no localStorage
+            console.log("Data", data)
+            localStorage.setItem('token', data.access_token); // Armazena o token no localStorage
             navigate('/signup'); // Redireciona para a página de cadastro
         } catch (err) {
             setError(err.message);

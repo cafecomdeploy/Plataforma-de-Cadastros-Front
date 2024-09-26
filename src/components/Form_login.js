@@ -34,8 +34,6 @@ const FormLogin = () => {
                 body: JSON.stringify({ email, senha }),
             });
             
-            console.log('rEOTRNOI -> ', response)
-            console.log('bODY: ', response.body)
             if (!response.ok) {
                 throw new Error('Credenciais inválidas');
             }
@@ -44,7 +42,7 @@ const FormLogin = () => {
             console.log("Data", data.access_token)
             localStorage.setItem('token', data.access_token); // Armazena o token no localStorage
             localStorage.setItem('user_id', data.user_id);
-            navigate('/endereco'); // Redireciona para a página de ewndereco
+            navigate('/endereco'); 
         } catch (err) {
             setError(err.message);
         }

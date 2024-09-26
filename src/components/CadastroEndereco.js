@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { FaEdit, FaTrash } from 'react-icons/fa'; // Ícones para editar e deletar
 import '../styles/CadastroEndereco.css'; // Estilos personalizados
 import Button from './Button';
@@ -7,24 +7,47 @@ import Button from './Button';
 const CadastroEndereco = () => {
   const [enderecos, setEnderecos] = useState([]);
   const navigate = useNavigate();
+  const location = useLocation(); // Para acessar o estado da navegação
+  const token_pass = localStorage.getItem('token'); // Pegando o token diretamente
 
   // Função para buscar endereços cadastrados da API
-  useEffect(() => {
-    fetch('http://127.0.0.1:8000/address-user/' + localStorage.getItem('user_id'))
-      .then((response) => response.json())
-      .then((data) => setEnderecos(data))
+  const fetchEnderecos = () => {
+    fetch(`http://127.0.0.1:8000/address-user/${localStorage.getItem('user_id')}`, {
+      headers: {
+        'Authorization': `Bearer ${token_pass}`, // Passando o token
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data); // Logando os dados recebidos
+        setEnderecos(data);
+      })
       .catch((error) => console.error('Erro ao buscar endereços:', error));
-  }, []);
+  };
+  
 
-  // Função para redirecionar para o componente de novo endereço
+  // Carregar endereços na montagem do componente e quando o estado mudar
+  useEffect(() => {
+    fetchEnderecos();
+  }, [location.state]); // Dependência para reexecutar ao voltar com o estado
+
   const handleNovoEndereco = () => {
     navigate('/novo-endereco'); // Ajuste o caminho de navegação conforme a sua rota de endereço
   };
 
   // Função para deletar endereço
   const handleDelete = (id) => {
-    // Chame a API para deletar o endereço
-    fetch(`http://127.0.0.1:8000/address/${id}/`, { method: 'DELETE' })
+    fetch(`http://127.0.0.1:8000/addresses/${id}/`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token_pass}`, // Passando o token
+      },
+    })
       .then(() => {
         setEnderecos(enderecos.filter(endereco => endereco.id !== id));
         alert('Endereço deletado com sucesso!');
@@ -34,7 +57,6 @@ const CadastroEndereco = () => {
 
   // Função para editar endereço
   const handleEdit = (id) => {
-    // Redirecione para a página de edição
     navigate(`/editar-endereco/${id}`);
   };
 
@@ -48,7 +70,7 @@ const CadastroEndereco = () => {
       {enderecos.length > 0 ? (
         <div className="endereco-list">
           {enderecos.map((endereco) => (
-            <div key={endereco.id} className="endereco-item">
+            <div  className="endereco-item">
               <div className="endereco-info">
                 <p><strong>Rua:</strong> {endereco.logradouro}</p>
                 <p><strong>Cidade:</strong> {endereco.cidade}</p>

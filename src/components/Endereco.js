@@ -38,39 +38,41 @@ const Endereco = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
     if (!validarCep(formData.cep)) {
       alert('Por favor, corrija os erros antes de enviar.');
       return;
     }
-
+  
     try {
-      // Obtenha o user_id do localStorage
-      const usuario_id = localStorage.getItem('user_id');
-      const dataToSend = { ...formData, usuario_id }; // Inclua o user_id nos dados enviados
-
+      const token_pass = localStorage.getItem('token'); // Pegando o token diretamente
+      const usuario_id =  localStorage.getItem('user_id');
+      const dataToSend = { ...formData, usuario_id }; // Incluindo o user_id nos dados enviados
+  
       const response = await fetch('http://127.0.0.1:8000/cadastro/address/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token_pass}`, // Passando o token no cabeçalho
         },
         body: JSON.stringify(dataToSend),
       });
-
+  
       if (!response.ok) {
         throw new Error('Erro ao cadastrar o endereço');
       }
-
+    
       alert('Endereço cadastrado com sucesso!');
-      setFormData({ logradouro: '', cidade: '', estado: '', cep: '' }); 
-      
-      navigate('/endereco'); 
-
+      setFormData({ logradouro: '', cidade: '', estado: '', cep: '' });
+  
+      navigate('/endereco', { state: { refresh: true } });
+  
     } catch (error) {
       console.error(error);
       alert('Houve um erro ao cadastrar o endereço. Tente novamente.');
     }
   };
-
+  
   return (
     <div className="container">
       <h2>Cadastro de Endereço</h2>

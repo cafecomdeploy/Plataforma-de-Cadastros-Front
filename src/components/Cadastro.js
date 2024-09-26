@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import '../styles/Cadastro.css'; // Importando o arquivo de estilos
-
+import { useNavigate } from 'react-router-dom';
+import '../styles/Cadastro.css'; 
 const Cadastro = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     nome: "",
     email: "",
@@ -19,17 +20,46 @@ const Cadastro = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (formData.senha !== formData.confirmarSenha) {
       setError("As senhas não coincidem");
     } else {
       setError("");
-      // Aqui você pode enviar os dados para o back-end
-      console.log("Formulário enviado com sucesso!", formData);
+  
+      const dataToSend = {
+        nome: formData.nome,
+        email: formData.email,
+        data_nascimento: formData.dataNascimento,
+        senha: formData.senha,
+      };
+  
+      try {
+        const response = await fetch('http://127.0.0.1:8000/users/register/', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(dataToSend),
+        });
+  
+        if (!response.ok) {
+          const errorData = await response.json();
+          setError(errorData.message || "Erro ao registrar usuário");
+        } else {
+          const responseData = await response.json();
+          console.log("Formulário enviado com sucesso!", responseData);
+          navigate('/'); 
+        }
+      } catch (error) {
+        setError("Erro de rede. Tente novamente mais tarde.");
+        console.error("Erro ao enviar o formulário:", error);
+      }
     }
   };
+  
 
   return (
     <div className="cadastro-container">

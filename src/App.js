@@ -5,6 +5,7 @@ import Cadastro from './components/Cadastro';
 import CadastroEndereco from './components/CadastroEndereco'
 import Endereco from './components/Endereco';
 import PrivateRoute from './PrivateRoute';
+import EnderecoEdit from './components/EnderecoEdit'
 import useAuth from './AuthContext';
 
 const App = () => {
@@ -34,9 +35,18 @@ const App = () => {
                         </PrivateRoute>
                     }
                 />
+                <Route
+                    path="/editar-endereco"
+                    element={
+                        <PrivateRoute isAuthenticated={isAuthenticated}>
+                            <EnderecoEdit />
+                        </PrivateRoute>
+                    }
+                />
             </Routes>
         </Router>
     );
 };
 
 export default App
+

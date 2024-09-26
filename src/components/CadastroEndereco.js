@@ -57,7 +57,7 @@ const CadastroEndereco = () => {
 
   // Função para editar endereço
   const handleEdit = (id) => {
-    navigate(`/editar-endereco/${id}`);
+    navigate(`/editar-endereco`, { state: { addressId: id } });
   };
 
   return (

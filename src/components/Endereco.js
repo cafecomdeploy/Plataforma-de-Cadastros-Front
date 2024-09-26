@@ -61,7 +61,7 @@ const Endereco = () => {
       }
 
       alert('Endereço cadastrado com sucesso!');
-      setFormData({ logradouro: '', cidade: '', estado: '', cep: '' }); // Limpa o formulário
+      setFormData({ logradouro: '', cidade: '', estado: '', cep: '' }); 
       
       navigate('/endereco'); 
 

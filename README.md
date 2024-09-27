@@ -28,11 +28,15 @@ Certifique-se de ter o Node.js e o npm (Node Package Manager) instalados em sua 
    git clone https://github.com/cafecomdeploy/Plataforma-de-Cadastros-Front.git
 
 2. Navegue até o diretório do projeto:
+```
 cd Plataforma-de-Cadastros-Front
-
-3. Instale as dependências:
+```
+4. Instale as dependências:
+```
 npm install
+```
 
-4. Inicie a aplicação:
-
+6. Inicie a aplicação:
+```
 npm start
+```
